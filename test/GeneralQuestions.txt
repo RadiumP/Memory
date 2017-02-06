@@ -1,0 +1,31 @@
+Briefly address the following points, modify this text file and include it 
+in your reply.
+------------------------------------------------------------------------------
+
+ 
+Explain the conceptual distinctions between scripting languages, C++, C, 
+and assembly and when it is appropriate and inappropriate to use each.
+--------------------------------------
+
+
+Describe the limitations of code reuse through inheritance in a large, 
+diverse codebase.  Propose alternative solutions to these limitations.
+--------------------------------------
+
+
+Compare and contrast the biggest challenges of console game development
+versus PC game development.
+--------------------------------------
+
+
+How would you attempt to understand the design of a large code base in a short
+period of time?
+--------------------------------------
+
+
+Talk about a few Best Practices you use when programming in a team environment.
+--------------------------------------
+
+
+Discuss an instance of a bad game design decision in an otherwise good game.
+--------------------------------------
