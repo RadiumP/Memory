@@ -6,12 +6,17 @@
 #include <iostream>
 
 //Reference: http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf
-
 //https://www.ibm.com/developerworks/aix/tutorials/au-memorymanager/
+//
+
+/*
+Cons in this implementation: 
+
+block has a size of 12, not efficient enough
+deallocate() does not 'delete' the aPointer, after deallocate aPointer can still output *aPointer
 
 
-
-
+*/
 
 namespace MemoryManager
 {
@@ -55,8 +60,9 @@ namespace MemoryManager
 		while ((cur->size < aSize || cur->isFree == 0) && cur->next != NULL)
 		{
 			//prev = cur;
-			cur = cur->next;
 			std::cout << "block" << cur << "not available" << std::endl;
+			cur = cur->next;
+			
 		}
 		if (cur->size == aSize)
 		{
@@ -69,7 +75,9 @@ namespace MemoryManager
 		{
 
 			std::cout << "block" << cur << "too big need to split" << std::endl;
+			std::cout << cur->size << std::endl;
 			split(cur, aSize);
+			std::cout << cur->next->size << std::endl;
 			pData = (void*)(++cur);
 			
 			return pData;
@@ -87,7 +95,7 @@ namespace MemoryManager
 	
 
 	// Free up a chunk previously allocated
-	//DIY delete()
+	//DIY delete(): in fact it's not exactly same. deallocate() flags the block as isFree in MM_POOL, but aPointer still exists.
 	void deallocate(void* aPointer)
 	{
 		if ((MM_POOL <= aPointer) && (aPointer <= MM_POOL + MM_POOL_SIZE))
@@ -95,11 +103,11 @@ namespace MemoryManager
 			block* cur = (block*)aPointer;
 			cur--;
 			cur->isFree = 1;
-			//merge();
+			merge();
 		}
 		else
 		{
-			//onIllegalOperation();
+			onIllegalOperation("Invalid pointer for deallocation.");
 		}
 	}
 
@@ -112,9 +120,9 @@ namespace MemoryManager
 		int remain = MM_POOL_SIZE - sizeof(block);
 		block *cur;
 		cur = (block*)MM_POOL;
-		while (!cur->isFree)
+		while (cur)
 		{
-			remain -= cur->size;
+			if(!cur->isFree)remain -= cur->size + sizeof(block);
 			cur = cur->next;
 		}
 
@@ -125,22 +133,44 @@ namespace MemoryManager
 
 	int largestFree(void) 
 	{
-		return 0;
+		int max = 0;
+		block *cur;
+		cur = (block*)MM_POOL;
+		while (cur)
+		{
+			if (cur->isFree)
+			{
+				if (cur->size > max)max = cur->size;
+			}
+			cur = cur->next;
+		}
+		return max;
 	}
 
 	// will scan the memory pool and return the smallest free space remaining
 	int smallestFree(void)
 	{
-		return 0;
+		int min = MM_POOL_SIZE;
+		block *cur;
+		cur = (block*)MM_POOL;
+		
+		while (cur)
+		{
+			if (cur->isFree)
+			{
+				if (cur->size < min)min = cur->size;
+			}
+			cur = cur->next;
+		}
+		return min;
 	}
 
 
-	//If an avaible block is larger than the target size, split the block into smaller block. 
-	
+	//If an avaible block is larger than the target size, split the block into smaller block. 	
 	void split(block * slot, int aSize)
 	{
 		block* nBlock = (slot + aSize + sizeof(block));
-		nBlock->size = slot->size - sizeof(block);
+		nBlock->size = slot->size - aSize - sizeof(block);
 		nBlock->isFree = 1;
 		nBlock->next = slot->next;
 		slot->size = aSize;
@@ -153,14 +183,23 @@ namespace MemoryManager
 	{
 		block* cur;
 		cur = (block*)MM_POOL;
-		while (cur->next)
+		while (cur && cur->next)
 		{
-			if (cur->isFree && cur->next->isFree)
-			{
-				cur->size += cur->next->size + sizeof(block);
-				cur->next = cur->next->next;
-			}
-			cur = cur->next;
+			
+				if (cur->isFree && cur->next->isFree)
+				{				
+					do
+					{
+						cur->size += cur->next->size + sizeof(block);
+						cur->next = cur->next->next;
+					} while (cur->next && cur->next->isFree);
+				}
+				
+
+				cur = cur->next;
+			
+			
+			
 		}
 	}
 	
