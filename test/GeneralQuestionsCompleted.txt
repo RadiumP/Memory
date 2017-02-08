@@ -1,0 +1,48 @@
+Briefly address the following points, modify this text file and include it 
+in your reply.
+------------------------------------------------------------------------------
+
+ 
+Explain the conceptual distinctions between scripting languages, C++, C, 
+and assembly and when it is appropriate and inappropriate to use each.
+--------------------------------------
+ANS:
+-- Scripting languages are interpreted rather than compiled. They are mainly written for task automation, GUI, AI etc.
+They have no explicit entry point and are able to run interactively.
+
+Scripting languages are often used to replace human performance, it is a very high-level language which must be robust.
+For instances, Dota 2's AI uses scripts written in Lua. Unity uses C# or JavaScript to control behaviours. 
+Unreal 4 has a Blueprints scripting system.
+
+It is very high-level, so it is not good in memory management or performance related task. 
+
+
+-- C++ is an object-oriented programming language.  
+
+-- C
+
+-- Assembly
+
+
+
+Describe the limitations of code reuse through inheritance in a large, 
+diverse codebase.  Propose alternative solutions to these limitations.
+--------------------------------------
+
+
+Compare and contrast the biggest challenges of console game development
+versus PC game development.
+--------------------------------------
+
+
+How would you attempt to understand the design of a large code base in a short
+period of time?
+--------------------------------------
+
+
+Talk about a few Best Practices you use when programming in a team environment.
+--------------------------------------
+
+
+Discuss an instance of a bad game design decision in an otherwise good game.
+--------------------------------------

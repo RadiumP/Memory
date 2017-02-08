@@ -1,3 +1,14 @@
-﻿  Main.cpp
-  MemoryAllocation.vcxproj -> C:\Users\32808\OneDrive\Documents\GitHub\Memory\MemoryAllocation\Debug\MemoryAllocation.exe
-  MemoryAllocation.vcxproj -> C:\Users\32808\OneDrive\Documents\GitHub\Memory\MemoryAllocation\Debug\MemoryAllocation.pdb (Full PDB)
+﻿Build started 2/7/2017 9:10:40 PM.
+     1>Project "E:\ASU\Job\Insominac\Memory\MemoryAllocation\MemoryAllocation\MemoryAllocation.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Main.cpp
+         Main.cpp
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\ASU\Job\Insominac\Memory\MemoryAllocation\Debug\MemoryAllocation.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\ASU\Job\Insominac\Memory\MemoryAllocation\Debug\MemoryAllocation.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\ASU\Job\Insominac\Memory\MemoryAllocation\Debug\MemoryAllocation.lib" /MACHINE:X86 Debug\Main.obj
+         Debug\MemoryManger.obj
+         MemoryAllocation.vcxproj -> E:\ASU\Job\Insominac\Memory\MemoryAllocation\Debug\MemoryAllocation.exe
+     1>Done Building Project "E:\ASU\Job\Insominac\Memory\MemoryAllocation\MemoryAllocation\MemoryAllocation.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.45

@@ -2,25 +2,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-//clean cout later
 #include <iostream>
 
 //Reference: http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf
 //https://www.ibm.com/developerworks/aix/tutorials/au-memorymanager/
-//
 
+//Author: Chenyang Li
 /*
-Cons in this implementation: 
+--Based on the idea in the reference, I created a block structure to store size, a 'isFreee' flag and a pointer to next.
 
-block has a size of 12, not efficient enough
+0)Initialization: link the address with a block and init the variables
+1)Allocation: Find a free block with a larger or same size. If the block size is larger, split the block into smaller ones and do the allocation. 
+Set the size, flag to 0 and pointer to next
+2)Deallocation: Find the target block with the address and set the flag to 1. If multiple blocks are adjacant and free, merge them
+3)Check total free space, smallest block, largest block: Traverse the memory pool, check the size and flag to decide.
+4)Split, merge: Helper function to manipulate the blocks in the pool
+
+--Cons I think can be improved in this implementation: 
+
+block's size is 12, not efficient enough
 deallocate() does not 'delete' the aPointer, after deallocate aPointer can still output *aPointer
 
+This is surely not a perfect implementation, there might be more cons and space for improvement.  
 
+--Other notes/thought:
+I took a long time on figuring out the ideas than the coding. This is the 1st time I ever tried to code something like this.
+After reading and googling, I learnt a lot and found this is a very important and useful in Game Development. However, I did not realize it until now.
+This is defintely something I need to improve.
+
+Thanks for the test!
 */
 
 namespace MemoryManager
 {
-	//size is from the note
+	
 	const int MM_POOL_SIZE = 65536;
 	char MM_POOL[MM_POOL_SIZE];
 
@@ -41,9 +56,6 @@ namespace MemoryManager
 		initBlock->size = MM_POOL_SIZE - sizeof(block);
 		initBlock->isFree = 1;
 		initBlock->next = NULL;
-		
-		
-		//std::cout << sizeof(struct block)<< std::endl; same as sizeof(block)
 	}
 
 
@@ -52,44 +64,37 @@ namespace MemoryManager
 	//DIY  new() 
 	void* allocate(int aSize)
 	{
-		block *cur, *prev;
+		block *cur;
 		void* pData = nullptr;
 
 		cur = (block*)MM_POOL;
-		std::cout << (cur)->isFree << std::endl;
+		//traverse
 		while ((cur->size < aSize || cur->isFree == 0) && cur->next != NULL)
 		{
-			//prev = cur;
-			std::cout << "block" << cur << "not available" << std::endl;
-			cur = cur->next;
-			
+			cur = cur->next;			
 		}
+		//fit
 		if (cur->size == aSize)
 		{
 			cur->isFree = 0;
-			pData = (void*)(++cur);
-			std::cout << "block" << cur << "fit" << std::endl;
+			pData = (void*)(++cur);			
 			return pData;
 		}
+		//large need to split
 		else if (cur->size > aSize + sizeof(block))
 		{
-
-			std::cout << "block" << cur << "too big need to split" << std::endl;
-			std::cout << cur->size << std::endl;
-			split(cur, aSize);
-			std::cout << cur->next->size << std::endl;
+			split(cur, aSize);			
 			pData = (void*)(++cur);
 			
 			return pData;
 		}
+		//pool size is too small
 		else
 		{
 			onOutOfMemory();
 			return pData;
 		}
 
-		
-		
 	}
 
 	
@@ -103,6 +108,7 @@ namespace MemoryManager
 			block* cur = (block*)aPointer;
 			cur--;
 			cur->isFree = 1;
+			//merge multiple adjacant blocks
 			merge();
 		}
 		else
@@ -117,12 +123,12 @@ namespace MemoryManager
 	int freeRemaining(void)
 	{
 		//double check here!!!
-		int remain = MM_POOL_SIZE - sizeof(block);
+		int remain = MM_POOL_SIZE;
 		block *cur;
 		cur = (block*)MM_POOL;
 		while (cur)
 		{
-			if(!cur->isFree)remain -= cur->size + sizeof(block);
+			if(!cur->isFree)remain -= (cur->size + sizeof(block));
 			cur = cur->next;
 		}
 
@@ -140,7 +146,7 @@ namespace MemoryManager
 		{
 			if (cur->isFree)
 			{
-				if (cur->size > max)max = cur->size;
+				if (cur->size > max)max = cur->size + sizeof(block);
 			}
 			cur = cur->next;
 		}
@@ -158,7 +164,7 @@ namespace MemoryManager
 		{
 			if (cur->isFree)
 			{
-				if (cur->size < min)min = cur->size;
+				if (cur->size < min)min = cur->size + sizeof(block);
 			}
 			cur = cur->next;
 		}
