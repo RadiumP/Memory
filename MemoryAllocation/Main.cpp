@@ -32,6 +32,9 @@ int main(void)
 
   std::cout << "Free memory = " << freeRemaining() << std::endl;  
 
+  deallocate(int_pointer);
+  deallocate(string_pointer);
+ 
   //For VS to keep the console
   std::cin.get();
   
