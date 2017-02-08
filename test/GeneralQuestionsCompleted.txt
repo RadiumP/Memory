@@ -9,40 +9,83 @@ and assembly and when it is appropriate and inappropriate to use each.
 ANS:
 -- Scripting languages are interpreted rather than compiled. They are mainly written for task automation, GUI, AI etc.
 They have no explicit entry point and are able to run interactively.
-
 Scripting languages are often used to replace human performance, it is a very high-level language which must be robust.
 For instances, Dota 2's AI uses scripts written in Lua. Unity uses C# or JavaScript to control behaviours. 
 Unreal 4 has a Blueprints scripting system.
-
 It is very high-level, so it is not good in memory management or performance related task. 
 
+-- C++ is an object-oriented programming language with 4 major principles: Encapsulation, Data Abstraction, Polymorphism and Inheritance.
+It has a great reusability and extensibility. It is good for low-level programming and very useful for performance optimization.
+Computer graphics projects are mainly developed in C++, a lot of game engines are also in C++.
+However, its complexity makes it bad for frontend programming. 
 
--- C++ is an object-oriented programming language.  
+-- C is low-level and used a lot in embedded programming. It is not an OOP language so it is not good for large-scale projects.
+Some game companies used C to develop. Computer Engineering uses a lot of, because it is more manageable than Assembly language.
 
--- C
-
--- Assembly
-
+-- Assembly is very low-level. It is faster than C but it takes long time to develop. It is not as widely-used as used to. 
+'Hello World' is one line in C, but takes way greater effort in Assembly to manipulate the gate circuits and the logic.
+I learnt Assembly in a course but did not get anything other than it is hard and painful. It might be useful in hardware though.
 
 
 Describe the limitations of code reuse through inheritance in a large, 
 diverse codebase.  Propose alternative solutions to these limitations.
 --------------------------------------
+ANS:
+--Inheritance violates encapsulation in a way. Reused inheritance code cannot be changed at runtime, and is bad for testing.
+It will also increase the complexity of the code.
+Composition over inheritance is the solution to the limitations
 
 
 Compare and contrast the biggest challenges of console game development
 versus PC game development.
 --------------------------------------
+ANS:
+--In my opinion, Optimization is the key and biggest challenge in console game development. 
+Comparing to consoles, PC has more customizable hardware. PC gamers can always upgrade their machines if the game requires better specs.
+However, the development of new generation in console is way slower. For instance, PlayStation 3 releases in late 2006 and PS4 released 7 years later.
+Graphics, physics etc in game can evolve a lot in 7 years, but all of them have to be playable on the same hardware.
+For PC game development, I think new technology and quality is more important. 
+
+Additionally, how to maximize the characteristics of controller is also a challenge. Vibration and analog of controller has been used a lot and well in console games.
+However, PS4's new touchpad is not fully used. Most of games now only used it as a menu button, only a few used it for interactions. I think there is more to
+be discovered.
 
 
 How would you attempt to understand the design of a large code base in a short
 period of time?
 --------------------------------------
-
+ANS:
+--First of all, I think it is very important to get an overview what the code wants to achieve. 
+Then I think good tools are required to review the code in a divide-conquer method.
+Read comments and commit messages first and find where your task is.
+Refer to the author and the documents if necessary since the time is short.
 
 Talk about a few Best Practices you use when programming in a team environment.
 --------------------------------------
+ANS:
+--Have a good overview and understanding of the project
+--Break it into small tasks and assign.
+--Discuss before coding, also have frequent team meeting
+--Use version control
+--Leave clear comments and file detailed documents
 
 
 Discuss an instance of a bad game design decision in an otherwise good game.
 --------------------------------------
+ANS:
+--Grand Theft Auto V is a great game, however its side missions have space to improve.
+
+First thing is some of the side mission are not available at all after the main story is completed.
+When I first beat the game, I found that I had some incomplete side missions but I could not find them since the main story is over.
+Some player will replay the game for achievements, different builds or strats. But I think it is a bad design that you have to restart or reload for side missions.
+
+Then, I think the side missions/main stories did not fully introduce the new features or areas of the whole game.
+Besides telling stories, side missions and main story are often used as a guidance to help player to explore in open-world games.
+So after the playthrough, the game should introduce all the new features and important areas. 
+However, after finishing the game, there are some activities are not introduced through the missions. This makes some of them irrelevant to this game.
+For experienced gamers, they will explore by themselves, but new gamers might miss a lot of them.
+
+
+
+
+
